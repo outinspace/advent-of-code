@@ -24,10 +24,10 @@ const containsSymbol = (x1, x2, y) => {
     const line = lines[y] ?? ''
     const string = line.substring(x1, x2)
 
-    return string.match(/[^.\d]/) !== null
+    const isMatch = string.match(/[^.\d]/) !== null
 }
 
-const isAdjacentToSymbol = ({ string, x1, y1 }) => {
+const getAdjacentSymbol = ({ string, x1, y1 }) => {
     const x2 = x1 + string.length - 1 // TODO
 
     const isAdjacent = containsSymbol(x1 - 1, x1, y1)
@@ -40,7 +40,12 @@ const isAdjacentToSymbol = ({ string, x1, y1 }) => {
     return isAdjacent
 }
 
-const goodNumbers = allNumbers.filter(isAdjacentToSymbol)
+
+const goodNumbers = allNumbers.filter(x => {
+    const adjacent = getAdjacentSymbol(x);
+
+    return adjacent;
+});
 console.log({ allNumbers })
 
 let sum = 0
